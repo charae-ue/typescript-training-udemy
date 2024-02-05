@@ -1,17 +1,22 @@
 import { MatchReader } from './MatchReader';
-import { MatchResult } from './MatchResult';
+import { Summary } from './Summary';
+import { ConsoleReport } from './report-targets/ConsoleReport';
+import { WinAnalysis } from './analyzers/WinAnalysis';
+import { HtmlReport } from './report-targets/HmtlReport';
 
 const reader = new MatchReader('football.csv');
 reader.read();
 
-let manUnitedWins = 0;
+// const summary = new Summary(new WinAnalysis('Liverpool'), new ConsoleReport());
+const summary = Summary.winsAnalysisWithConsoleReport('Chelsea');
+summary.buildAndPrintReport(reader.data);
 
-for (const match of reader.data) {
-  if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
-    manUnitedWins++;
-  } else if (match[2] === 'Man United' && match[5] === MatchResult.AwayWin) {
-    manUnitedWins++;
-  }
-}
-
-console.log(`Total Man United win: ${manUnitedWins}`);
+// const htmlSummary = new Summary(
+//   new WinAnalysis('Man City'),
+//   new HtmlReport('html-report.html')
+// );
+const htmlSummary = Summary.winsAnalysisWithHtmlReport(
+  'Man City',
+  'html-report-city.html'
+);
+htmlSummary.buildAndPrintReport(reader.data);
