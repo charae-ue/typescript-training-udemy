@@ -11,5 +11,5 @@ console.log(user);
 console.log(company);
 
 const customMap = new CustomMap('map');
-customMap.addUserMarker(user);
-customMap.addCompanyMarker(company);
+customMap.addMarker(user); // this works despite the type is `User`, since `User` satisfies `Mappable` interface
+customMap.addMarker(company);
