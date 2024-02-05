@@ -1,25 +1,7 @@
-class Sorter {
-  collection: number[];
+import { NumbersCollection } from './NumbersCollection';
+import { Sorter } from './Sorter';
 
-  constructor(collection: number[]) {
-    this.collection = collection;
-  }
-
-  sort(): void {
-    const { length } = this.collection;
-
-    for (let i = 0; i < length; i++) {
-      for (let j = 0; j < length - i - 1; j++) {
-        if (this.collection[j] > this.collection[j + 1]) {
-          const temp = this.collection[j];
-          this.collection[j] = this.collection[j + 1];
-          this.collection[j + 1] = temp;
-        }
-      }
-    }
-  }
-}
-
-const sorter = new Sorter([0, 15, -1, 7]);
+const numbersCollection = new NumbersCollection([0, 15, -1, 7]);
+const sorter = new Sorter(numbersCollection);
 sorter.sort();
-console.log(sorter.collection);
+console.log(numbersCollection.data);
