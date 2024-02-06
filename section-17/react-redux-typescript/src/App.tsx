@@ -16,13 +16,30 @@ interface AppProps {
   deleteTodo: typeof deleteTodo; // * Unlike here, which is a standard action function
 }
 
-// function _App({ todos, fetchTodos }: AppProps) {
-//   return <div>Hi there!</div>;
-// }
+interface AppState {
+  isFetching: boolean;
+}
 
-class _App extends React.Component<AppProps> {
+// * Would love to just use function component, though might need to use `useEffect` for data fetching :(
+// * and don't wanna get my hand dirty importing data fetching lib just for this simple tutorial
+class _App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+
+    this.state = { isFetching: false };
+  }
+
+  componentDidUpdate(prevProps: AppProps): void {
+    console.log({ prevProps });
+
+    if (!prevProps.todos.length && this.props.todos.length) {
+      this.setState({ isFetching: false });
+    }
+  }
+
   onButtonClick = (): void => {
     this.props.fetchTodos();
+    this.setState({ isFetching: true });
   };
 
   onTodoClick = (id: number): void => {
@@ -43,6 +60,7 @@ class _App extends React.Component<AppProps> {
     return (
       <div>
         <button onClick={this.onButtonClick}>Fetch</button>
+        {this.state.isFetching ? 'Loading...' : null}
         {this.renderList()}
       </div>
     );
