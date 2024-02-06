@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FetchTodosAction, Todo } from '../actions';
-import { ActionTypes } from '../actions/type';
+import { ActionTypes, FetchTodosAction, Todo } from '../actions';
 
 export const todosReducer = (state: Todo[] = [], action: FetchTodosAction) => {
   switch (action.type) {
